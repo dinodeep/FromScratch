@@ -1,3 +1,42 @@
+'''
+REFERENCES: https://github.com/karpathy/cryptos/blob/main/cryptos/sha256.py
+'''
+
+
+import math
+from itertools import count, islice
+
+
+def isprime(n: int) -> bool:
+    return not any([n % i == 0 for i in range(2, n)])
+
+
+def ugly_n_primes(n: int):
+    primes = []
+    for i in range(2, 10000):
+        if isprime(i):
+            primes.append(i)
+        if len(primes) == n:
+            return primes
+
+
+def first_n_primes(n: int) -> list:
+    return islice(filter(isprime, count(start=2)), n)
+
+
+def frac_bin(f, n=32):
+    f -= int(f)
+    f *= 2**n
+    f = int(f)
+    return f
+
+
+def genH():
+    return [frac_bin(p ** (1/2.)) for p in first_n_primes(8)]
+
+
+def genK():
+    return [frac_bin(p ** (1/3.)) for p in first_n_primes(64)]
 
 
 def pad(b: bytes) -> bytearray:
@@ -23,7 +62,19 @@ def pad(b: bytes) -> bytearray:
 def SHA256(data: bytes) -> bytes:
 
     b = pad(data)
-    print(len(b) * 8)
+
+    h0, h1, h2, h3, h4, h5, h6, h7 = genH()
+    K = genK()
+
+    # chunk loop (each chunk is 512 bits = 64 bytes)
+    for i in range(0, len(b), 64):
+        chunk = b[i:i+64].copy()
+
+        # create window where each entry is 32 bits = 4 bytes
+        empty = 0
+        w = [chunk[j:j+4] for j in range(0, len(chunk), 4)]
+        for i in range(48):
+            w.append(bytearray(empty.to_bytes(4, "big")))
 
 
 SHA256(bytes("hello world!", "ascii"))
