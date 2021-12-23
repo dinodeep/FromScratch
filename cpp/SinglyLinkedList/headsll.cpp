@@ -25,17 +25,17 @@ public:
         length = 0;
     }
 
-    void prepend(int *value)
+    void prepend(int *val)
     {
-        Node *node = new Node(value, head);
+        Node *node = new Node(val, head);
         head = node;
         length++;
         return;
     }
 
-    void append(int *value)
+    void append(int *val)
     {
-        Node *newNode = new Node(value, NULL);
+        Node *newNode = new Node(val, NULL);
         length++;
 
         if (head == NULL)
@@ -57,10 +57,10 @@ public:
         if (head == NULL)
             return NULL;
 
-        int *value = head->val;
+        int *val = head->val;
         head = head->next;
         length--;
-        return value;
+        return val;
     }
 
     int *popBack()
@@ -95,6 +95,42 @@ public:
 
 private:
     Node *head;
+    int length;
+};
+
+class HeadTailSLL
+{
+public:
+    void prepend(int *val)
+    {
+        Node *newNode = new Node(val, head);
+        length++;
+
+        if (head == NULL)
+            tail = newNode;
+        head = newNode;
+
+        return;
+    }
+
+    void append(int *val)
+    {
+        Node *newNode = new Node(val, NULL);
+        length++;
+
+        if (tail == NULL)
+            head = newNode;
+        else
+            tail->next = newNode;
+
+        tail = newNode;
+
+        return;
+    }
+
+private:
+    Node *head;
+    Node *tail;
     int length;
 };
 

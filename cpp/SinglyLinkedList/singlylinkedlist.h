@@ -35,12 +35,14 @@ public:
         REQUIRES: true
         ENSURES: sll.getLength() > 0 
     */
-    virtual void prepend(int *value) = 0;
-    virtual void append(int *value) = 0;
+    virtual void prepend(int *val) = 0;
+    virtual void append(int *val) = 0;
 
     virtual int *popFront() = 0;
     virtual int *popBack() = 0;
+
     virtual int getLength() = 0;
     virtual bool isEmpty() = 0;
+
     virtual ~SinglyLL(); /* destructor */
 };
