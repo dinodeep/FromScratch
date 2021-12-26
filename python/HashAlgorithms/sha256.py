@@ -1,11 +1,25 @@
 '''
-REFERENCES: https://github.com/karpathy/cryptos/blob/main/cryptos/sha256.py
+Sources & Other Implementations:
+https://github.com/karpathy/cryptos/blob/main/cryptos/sha256.py
 '''
 
 
 import math
 from itertools import count, islice
 
+
+# ----------------------------------------------------------
+
+
+def b2i(b):
+    return int.from_bytes(b, "big")
+
+
+def i2b(i):
+    return i.to_bytes(4, "big")
+
+
+# ----------------------------------------------------------
 
 def isprime(n: int) -> bool:
     return not any([n % i == 0 for i in range(2, n)])
@@ -59,6 +73,9 @@ def pad(b: bytes) -> bytearray:
     return b
 
 
+# ----------------------------------------------------------
+
+
 def SHA256(data: bytes) -> bytes:
 
     b = pad(data)
@@ -75,6 +92,9 @@ def SHA256(data: bytes) -> bytes:
         w = [chunk[j:j+4] for j in range(0, len(chunk), 4)]
         for i in range(48):
             w.append(bytearray(empty.to_bytes(4, "big")))
+
+        for i in range(16, 64):
+            pass
 
 
 SHA256(bytes("hello world!", "ascii"))
