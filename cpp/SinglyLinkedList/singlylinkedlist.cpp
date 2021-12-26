@@ -22,21 +22,21 @@ public:
     HeadSLL()
     {
         head = NULL;
-        length = 0;
+        size = 0;
     }
 
-    void prepend(int *val)
+    void pushFront(int *val)
     {
         Node *node = new Node(val, head);
         head = node;
-        length++;
+        size++;
         return;
     }
 
-    void append(int *val)
+    void pushBack(int *val)
     {
         Node *newNode = new Node(val, NULL);
-        length++;
+        size++;
 
         if (head == NULL)
         {
@@ -59,7 +59,7 @@ public:
 
         int *val = head->val;
         head = head->next;
-        length--;
+        size--;
         return val;
     }
 
@@ -79,13 +79,13 @@ public:
         if (prev != NULL)
             prev->next = NULL;
 
-        length--;
+        size--;
         return curr->val;
     }
 
-    int getLength()
+    int getSize()
     {
-        return length;
+        return size;
     }
 
     bool isEmpty()
@@ -95,47 +95,5 @@ public:
 
 private:
     Node *head;
-    int length;
+    int size;
 };
-
-class HeadTailSLL
-{
-public:
-    void prepend(int *val)
-    {
-        Node *newNode = new Node(val, head);
-        length++;
-
-        if (head == NULL)
-            tail = newNode;
-        head = newNode;
-
-        return;
-    }
-
-    void append(int *val)
-    {
-        Node *newNode = new Node(val, NULL);
-        length++;
-
-        if (tail == NULL)
-            head = newNode;
-        else
-            tail->next = newNode;
-
-        tail = newNode;
-
-        return;
-    }
-
-private:
-    Node *head;
-    Node *tail;
-    int length;
-};
-
-int main()
-{
-
-    return 0;
-}

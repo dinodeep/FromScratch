@@ -27,6 +27,7 @@ LOOK AT 213 C-STYLE GUIDELINES FOR ALL OF THIS
 */
 
 // LOOK AT TEMPLATES - for generalization
+// NULL terminated
 class SinglyLL
 {
 public:
@@ -35,13 +36,13 @@ public:
         REQUIRES: true
         ENSURES: sll.getLength() > 0 
     */
-    virtual void prepend(int *val) = 0;
-    virtual void append(int *val) = 0;
+    virtual void pushFront(int *val) = 0;
+    virtual void pushBack(int *val) = 0;
 
     virtual int *popFront() = 0;
     virtual int *popBack() = 0;
 
-    virtual int getLength() = 0;
+    virtual int getSize() = 0;
     virtual bool isEmpty() = 0;
 
     virtual ~SinglyLL(); /* destructor */
